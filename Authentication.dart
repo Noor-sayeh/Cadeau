@@ -1,5 +1,5 @@
 import 'package:cadeau_project/Sign_login/Chooseing_Avatar.dart';
-import 'package:cadeau_project/Sign_login/customerHome.dart';
+import 'package:cadeau_project/userHomePage/userHomePage.dart';
 
 import '/custom/theme.dart';
 import '/custom/util.dart';
@@ -187,6 +187,7 @@ Future<void> handleLogin(
       // Login successful - check role and navigate
       final userRole =
           response['user']['role'] ?? 'Customer'; // Get role from backend
+      final userId = response['user']['_id'] ?? ''; // Get user ID from response
 
       if (userRole == 'Owner' || userRole == 'owner') {
         Navigator.pushReplacement(
@@ -197,8 +198,10 @@ Future<void> handleLogin(
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => CustomerHome(),
-          ), // Replace with your customer page
+            builder:
+                (context) =>
+                    userHomePage(userId: userId), // Updated to UserHomePage
+          ),
         );
       }
     }
@@ -281,11 +284,18 @@ class _HomePageWidgetState extends State<HomePageWidget>
           automaticallyImplyLeading: false,
           title: Text(
             'Cadeau',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-              fontFamily: 'Inter Tight',
+            style: GoogleFonts.dancingScript(
               color: Colors.white,
-              fontSize: 30,
+              fontSize: 33,
               letterSpacing: 0.0,
+              fontWeight: FontWeight.w700,
+              shadows: [
+                Shadow(
+                  blurRadius: 2,
+                  color: Colors.black.withOpacity(0.1),
+                  offset: Offset(1, 1),
+                ),
+              ],
             ),
           ),
           actions: [],
@@ -354,14 +364,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       labelStyle: FlutterFlowTheme.of(
                                         context,
                                       ).labelMedium.override(
-                                        fontFamily: 'Inter',
+                                        fontFamily: 'Outfit',
                                         letterSpacing: 0.0,
                                       ),
                                       hintText: 'Name...',
                                       hintStyle: FlutterFlowTheme.of(
                                         context,
                                       ).labelMedium.override(
-                                        fontFamily: 'Inter',
+                                        fontFamily: 'Outfit',
                                         letterSpacing: 0.0,
                                         fontWeight: FontWeight.normal,
                                         shadows: [
@@ -415,7 +425,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     style: FlutterFlowTheme.of(
                                       context,
                                     ).bodyMedium.override(
-                                      fontFamily: 'Inter',
+                                      fontFamily: 'Outfit',
                                       letterSpacing: 0.0,
                                     ),
                                     cursorColor:
@@ -443,7 +453,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       labelStyle: FlutterFlowTheme.of(
                                         context,
                                       ).labelMedium.override(
-                                        fontFamily: 'Inter',
+                                        fontFamily: 'Outfit',
                                         color: Color(0xFF152435),
                                         letterSpacing: 0.0,
                                       ),
@@ -451,7 +461,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       hintStyle: FlutterFlowTheme.of(
                                         context,
                                       ).labelMedium.override(
-                                        fontFamily: 'Inter',
+                                        fontFamily: 'Outfit',
                                         letterSpacing: 0.0,
                                       ),
                                       enabledBorder: OutlineInputBorder(
@@ -497,7 +507,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     style: FlutterFlowTheme.of(
                                       context,
                                     ).bodyMedium.override(
-                                      fontFamily: 'Inter',
+                                      fontFamily: 'Outfit',
                                       letterSpacing: 0.0,
                                     ),
                                     cursorColor:
@@ -526,14 +536,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       labelStyle: FlutterFlowTheme.of(
                                         context,
                                       ).labelMedium.override(
-                                        fontFamily: 'Inter',
+                                        fontFamily: 'Outfit',
                                         letterSpacing: 0.0,
                                       ),
                                       hintText: 'Password...',
                                       hintStyle: FlutterFlowTheme.of(
                                         context,
                                       ).labelMedium.override(
-                                        fontFamily: 'Inter',
+                                        fontFamily: 'Outfit',
                                         letterSpacing: 0.0,
                                       ),
                                       enabledBorder: OutlineInputBorder(
@@ -597,7 +607,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     style: FlutterFlowTheme.of(
                                       context,
                                     ).bodyMedium.override(
-                                      fontFamily: 'Inter',
+                                      fontFamily: 'Outfit',
                                       letterSpacing: 0.0,
                                     ),
                                     cursorColor:
@@ -626,14 +636,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       labelStyle: FlutterFlowTheme.of(
                                         context,
                                       ).labelMedium.override(
-                                        fontFamily: 'Inter',
+                                        fontFamily: 'Outfit',
                                         letterSpacing: 0.0,
                                       ),
                                       hintText: 'Confirm Password...',
                                       hintStyle: FlutterFlowTheme.of(
                                         context,
                                       ).labelMedium.override(
-                                        fontFamily: 'Inter',
+                                        fontFamily: 'Outfit',
                                         letterSpacing: 0.0,
                                       ),
                                       enabledBorder: OutlineInputBorder(
@@ -697,7 +707,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                     style: FlutterFlowTheme.of(
                                       context,
                                     ).bodyMedium.override(
-                                      fontFamily: 'Inter',
+                                      fontFamily: 'Outfit',
                                       letterSpacing: 0.0,
                                     ),
                                     textAlign: TextAlign.start,
@@ -724,7 +734,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                   textStyle: FlutterFlowTheme.of(
                                     context,
                                   ).bodyMedium.override(
-                                    fontFamily: 'Inter',
+                                    fontFamily: 'Outfit',
                                     letterSpacing: 0.0,
                                   ),
                                   hintText: 'Sign up as...',
@@ -791,6 +801,8 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                                   (context) => Chooseing_Avatar(
                                                     userId:
                                                         signupResponse['userId'],
+                                                    // userName:
+                                                    // signupResponse['userName'],
                                                   ),
                                             ),
                                           );
@@ -872,14 +884,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                           labelStyle: FlutterFlowTheme.of(
                                             context,
                                           ).labelMedium.override(
-                                            fontFamily: 'Inter',
+                                            fontFamily: 'Outfit',
                                             letterSpacing: 0.0,
                                           ),
                                           hintText: 'Email...',
                                           hintStyle: FlutterFlowTheme.of(
                                             context,
                                           ).labelMedium.override(
-                                            fontFamily: 'Inter',
+                                            fontFamily: 'Outfit',
                                             letterSpacing: 0.0,
                                           ),
                                           enabledBorder: OutlineInputBorder(
@@ -933,7 +945,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         style: FlutterFlowTheme.of(
                                           context,
                                         ).bodyMedium.override(
-                                          fontFamily: 'Inter',
+                                          fontFamily: 'Outfit',
                                           letterSpacing: 0.0,
                                         ),
                                         cursorColor:
@@ -962,14 +974,14 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                         labelStyle: FlutterFlowTheme.of(
                                           context,
                                         ).labelMedium.override(
-                                          fontFamily: 'Inter',
+                                          fontFamily: 'Outfit',
                                           letterSpacing: 0.0,
                                         ),
                                         hintText: 'Password...',
                                         hintStyle: FlutterFlowTheme.of(
                                           context,
                                         ).labelMedium.override(
-                                          fontFamily: 'Inter',
+                                          fontFamily: 'Outfit',
                                           letterSpacing: 0.0,
                                         ),
                                         enabledBorder: OutlineInputBorder(
@@ -1041,7 +1053,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                                       style: FlutterFlowTheme.of(
                                         context,
                                       ).bodyMedium.override(
-                                        fontFamily: 'Inter',
+                                        fontFamily: 'Outfit',
                                         letterSpacing: 0.0,
                                       ),
                                       cursorColor:
@@ -1106,7 +1118,7 @@ class _HomePageWidgetState extends State<HomePageWidget>
                   'Join thousands of users and start your journey today!',
                   textAlign: TextAlign.center,
                   style: FlutterFlowTheme.of(context).titleLarge.override(
-                    fontFamily: 'Inter Tight',
+                    fontFamily: 'Outfit',
                     fontSize: 18,
                     letterSpacing: 0.0,
                   ),

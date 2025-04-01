@@ -1,5 +1,7 @@
+import 'package:cadeau_project/userHomePage/userHomePage.dart';
 import 'package:flutter/material.dart';
 import 'package:avatar_plus/avatar_plus.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '/custom/theme.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -30,6 +32,14 @@ class _Chooseing_AvatarState extends State<Chooseing_Avatar> {
     'pplo8r575',
     'p44fl8r5',
     'ppl887568r5',
+    'ederfotfr',
+    'vcfrtg5o654m',
+    'qw3w244otr6tg',
+    'bgtiyp56',
+    'mk88uh2go11',
+    '5g5t8y96fo3d',
+    'roa',
+    'banana1',
   ];
 
   Future<void> _updateUserAvatar() async {
@@ -43,10 +53,19 @@ class _Chooseing_AvatarState extends State<Chooseing_Avatar> {
       );
 
       if (response.statusCode == 200) {
-        // Avatar updated successfully
         print('Avatar updated successfully');
-        // Navigate to home page or wherever you want
-        // Navigator.pushReplacement(context, MaterialPageRoute(builder: ...));
+        // Navigate to userHomePage after successful update
+        if (mounted) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder:
+                  (context) => userHomePage(
+                    userId: widget.userId,
+                  ), // Replace with your actual home page widget
+            ),
+          );
+        }
       } else {
         print('Failed to update avatar: ${response.body}');
       }
@@ -65,11 +84,18 @@ class _Chooseing_AvatarState extends State<Chooseing_Avatar> {
         automaticallyImplyLeading: false,
         title: Text(
           'Cadeau',
-          style: FlutterFlowTheme.of(context).headlineMedium.override(
-            fontFamily: 'Inter Tight',
+          style: GoogleFonts.dancingScript(
             color: Colors.white,
-            fontSize: 30,
+            fontSize: 33,
             letterSpacing: 0.0,
+            fontWeight: FontWeight.w700,
+            shadows: [
+              Shadow(
+                blurRadius: 2,
+                color: Colors.black.withOpacity(0.1),
+                offset: Offset(1, 1),
+              ),
+            ],
           ),
         ),
         elevation: 2,
@@ -77,9 +103,25 @@ class _Chooseing_AvatarState extends State<Chooseing_Avatar> {
       body: Column(
         children: [
           const SizedBox(height: 20),
-          const Text(
-            'Meet your new friend',
-            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          Text(
+            "Your Shopping Sidekick Awaits!",
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+              fontSize: 16,
+              fontFamily: 'Outfit',
+              fontWeight: FontWeight.bold,
+              color: const Color.fromARGB(255, 134, 61, 179),
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 8),
+          Text(
+            "Choose a fun avatar to join you on your gift-finding journey",
+            style: FlutterFlowTheme.of(context).headlineMedium.override(
+              fontSize: 14,
+              fontFamily: 'Outfit',
+              color: Colors.grey[600],
+            ),
+            textAlign: TextAlign.center,
           ),
           const SizedBox(height: 20),
           Expanded(
@@ -125,8 +167,6 @@ class _Chooseing_AvatarState extends State<Chooseing_Avatar> {
                 selectedAvatar != null
                     ? () async {
                       await _updateUserAvatar();
-                      // Navigate to home page after selection
-                      // Navigator.pushReplacement(...);
                     }
                     : null,
             style: ElevatedButton.styleFrom(
@@ -136,9 +176,14 @@ class _Chooseing_AvatarState extends State<Chooseing_Avatar> {
               ),
               padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 12),
             ),
-            child: const Text(
+            child: Text(
               'Choose',
-              style: TextStyle(color: Colors.white, fontSize: 18),
+              style: FlutterFlowTheme.of(context).headlineMedium.override(
+                color: Colors.white,
+                fontSize: 18,
+                fontFamily: 'Outfit',
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           const SizedBox(height: 20),
