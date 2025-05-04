@@ -1,6 +1,7 @@
 // ignore_for_file: unused_import
 
 import 'package:cadeau_project/Sign_login/Authentication.dart';
+import 'package:cadeau_project/userHomePage/userHomePage.dart';
 
 import '/custom/theme.dart';
 import '/custom/util.dart';
@@ -108,7 +109,7 @@ class _OwnerAuthenticationWidgetState extends State<OwnerAuthenticationWidget> {
                             Navigator.push(
                             context,
                             MaterialPageRoute(
-                            builder: (context) => HomePageWidget(),
+                            builder: (context) => userHomePage(userId: '68037c897aea2125f35f30a0',),
                             ), // Replace with the correct widget
                             );
                             },
